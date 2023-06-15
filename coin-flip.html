@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Coin flip
+    </title>
+  </head>
+  <body>
+    <p>
+      Coin Toss Game
+    </p>
+
+    <button onClick="
+    playGame ('head')">
+      Heads
+    </button>
+
+    <button onClick="
+    playGame ('tail')">
+      Tails
+    </button>
+
+    <button onClick="
+    score.wins = 0;
+    score.losses = 0;
+    localStorage.removeItem ('score')">
+      Reset score
+    </botton>
+
+   <script>  
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      wins: 0,
+      losses: 0
+    }   
+    
+    function playGame(guess) {
+
+      computerChoise = pickComputerChoise();
+
+      let result = '';
+
+      if (guess === computerChoise) {
+        result = 'win'
+      } else {
+        result = "lose"
+      }
+
+      if (result === 'win') {
+        score.wins += 1
+      } else {
+        score.losses += 1
+      }
+
+      localStorage.setItem('score',JSON.stringify(score));
+      
+      alert(`You guessed ${guess}. Coin showed ${computerChoise}. You ${result}
+      Wins: ${score.wins} Losses; ${score.losses}`);
+
+      console.log(`Wins: ${score.wins} Losses: ${score.losses}`)
+    }
+    function pickComputerChoise(){
+
+      let variable1 = Math.random();
+
+      if (variable1 >=0 && variable1 < 1/2) {
+        return 'head';
+      } else {
+        return 'tail';
+      }
+    }
+   </script>
+  </body>
+</html>
